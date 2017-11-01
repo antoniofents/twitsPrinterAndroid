@@ -4,4 +4,5 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="twit_printer_receiver">com.example.afentanes.twitprinter.print</string>
+    <string name="twit_images_dir">twitImages</string>
 </resources>
