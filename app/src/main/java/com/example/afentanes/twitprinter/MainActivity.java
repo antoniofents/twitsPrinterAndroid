@@ -15,11 +15,13 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import static android.R.id.list;
 
@@ -41,12 +43,14 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         initRecyclerView();
+        initListTwits();
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
         initRecyclerView();
+        initListTwits();
     }
 
     private void initRecyclerView() {
@@ -102,6 +106,17 @@ public class MainActivity extends AppCompatActivity {
         return fileNames;
     }*/
 
+    private void initListTwits() {
+
+        ListView listView = (ListView) findViewById(R.id.twits_available);
+        SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(listView.getContext(), android.R.layout.simple_list_item_1, null,
+                TwitsDbReader.TWITS_BASIC_PROJECTION, new int[]{android.R.id.text1}, 0);
+        listView.setAdapter(simpleCursorAdapter);
+        simpleCursorAdapter.changeCursor(TwitsDbReader.getTwits(this));
+        listView.setVisibility(View.GONE);
+
+    }
+
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -111,11 +126,12 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_twits:
-                //    loadImageFromStorage("");
                     mRecyclerView.setVisibility(View.GONE);
+                    findViewById(R.id.twits_available).setVisibility(View.VISIBLE);
                     return true;
                 case R.id.navigation_printed:
-                    initRecyclerView();
+                    findViewById(R.id.twits_available).setVisibility(View.GONE);
+                    mRecyclerView.setVisibility(View.VISIBLE);
                     return true;
             }
             return false;

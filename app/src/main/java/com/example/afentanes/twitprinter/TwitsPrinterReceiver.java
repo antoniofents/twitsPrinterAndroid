@@ -26,11 +26,7 @@ public class TwitsPrinterReceiver extends BroadcastReceiver {
     private void printTwitFromApp(Context context, long id) {
 
         if(id>0){
-
-            CursorLoader cursorLoader = new CursorLoader(context,  CONTENT_URI,
-                    null, null, new  String [] {String.valueOf(id)}, null);
-            Cursor c = cursorLoader.loadInBackground();
-
+            Cursor c = TwitsDbReader.getTwit(context, id);
             if(c.getCount()>0){
                 c.moveToFirst();
                 Intent printIntent = new Intent(context, TwitsPrintService.class);
@@ -46,6 +42,8 @@ public class TwitsPrinterReceiver extends BroadcastReceiver {
         }
 
     }
+
+
 
 
 }
