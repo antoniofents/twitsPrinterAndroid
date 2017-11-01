@@ -59,6 +59,7 @@ public class TwitsPrintService extends IntentService {
         try {
             fileOutputStream = new FileOutputStream(file);
             image.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+            TwitPrinterUtil.sendNotification(this, name + " printed");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }finally {

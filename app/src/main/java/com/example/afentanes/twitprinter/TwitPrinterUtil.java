@@ -1,9 +1,16 @@
 package com.example.afentanes.twitprinter;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
+
+
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 /**
@@ -31,5 +38,36 @@ public class TwitPrinterUtil {
         } else {
             Log.d("a", "Job not scheduled");
         }
+    }
+
+
+    public static void sendNotification (Context context, String message){
+
+
+        String CHANNEL_ID = "twit_print_notifications";
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                        .setContentTitle("Twit printed")
+                        .setContentText(message)
+                        .setChannel(CHANNEL_ID);
+        Intent resultIntent = new Intent(context, MainActivity.class);
+
+
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+        mNotificationManager.notify(0, mBuilder.build());
+
     }
 }
