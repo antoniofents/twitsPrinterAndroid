@@ -25,7 +25,6 @@ import static android.R.id.list;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -41,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        initRecyclerView();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
         initRecyclerView();
     }
 
@@ -106,9 +111,10 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_twits:
                 //    loadImageFromStorage("");
+                    mRecyclerView.setVisibility(View.GONE);
                     return true;
                 case R.id.navigation_printed:
-                    mTextMessage.setText(R.string.title_dashboard);
+                    initRecyclerView();
                     return true;
             }
             return false;

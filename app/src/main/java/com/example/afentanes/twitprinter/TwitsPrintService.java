@@ -36,17 +36,18 @@ public class TwitsPrintService extends IntentService {
         super("TwitsPrintService");
     }
 
-    private Bitmap textAsBitmap(String text, int textColor) {
+    private Bitmap textAsBitmap(String text, String author, int textColor) {
+        String printText= text +"\n -" +author;
         Paint paint = new Paint(ANTI_ALIAS_FLAG);
         paint.setTextSize(100);
         paint.setColor(textColor);
         paint.setTextAlign(Paint.Align.LEFT);
         float baseline = -paint.ascent(); // ascent() is negative
-        int width = (int) (paint.measureText(text) + 0.5f); // round
+        int width = (int) (paint.measureText(printText) + 0.5f); // round
         int height = (int) (baseline + paint.descent() + 0.5f);
         Bitmap image = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(image);
-        canvas.drawText(text, 0, baseline, paint);
+        canvas.drawText(printText, 0, baseline, paint);
         return image;
     }
 
@@ -72,7 +73,7 @@ public class TwitsPrintService extends IntentService {
     }
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        Bitmap image = textAsBitmap(intent.getStringExtra("twit"), Color.BLUE);
+        Bitmap image = textAsBitmap(intent.getStringExtra("twit"),intent.getStringExtra("author"), Color.BLUE);
         saveImageToInternal(image, "twitImage"+intent.getStringExtra("id") +".png" );
     }
 }

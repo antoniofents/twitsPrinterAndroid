@@ -37,6 +37,7 @@ public class TwitsPrinterReceiver extends BroadcastReceiver {
                 Bundle bundle = new Bundle();
                 bundle.putString("twit" , c.getString(3));
                 bundle.putString("id", c.getString(1));
+                bundle.putString("author", c.getString(2));
                 printIntent.putExtras(bundle);
                 context.startService(printIntent);
             }
