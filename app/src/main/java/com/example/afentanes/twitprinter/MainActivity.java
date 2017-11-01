@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_twits);
+        getFileImages();
         mAdapter = new TwitsPrintedViewAdapter(getFileImages());
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
