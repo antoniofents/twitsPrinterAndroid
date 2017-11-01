@@ -38,7 +38,7 @@ public class TwitsPrintService extends IntentService {
 
     private Bitmap textAsBitmap(String text, int textColor) {
         Paint paint = new Paint(ANTI_ALIAS_FLAG);
-        paint.setTextSize(80);
+        paint.setTextSize(100);
         paint.setColor(textColor);
         paint.setTextAlign(Paint.Align.LEFT);
         float baseline = -paint.ascent(); // ascent() is negative
@@ -72,7 +72,6 @@ public class TwitsPrintService extends IntentService {
     }
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        Log.i(intent.getStringExtra("twit"), "yeeiiiiiii");
         Bitmap image = textAsBitmap(intent.getStringExtra("twit"), Color.BLUE);
         saveImageToInternal(image, "twitImage"+intent.getStringExtra("id") +".png" );
     }
