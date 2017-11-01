@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         initRecyclerView();
-        initListTwits();
     }
 
     @Override
@@ -113,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 TwitsDbReader.TWITS_BASIC_PROJECTION, new int[]{android.R.id.text1}, 0);
         listView.setAdapter(simpleCursorAdapter);
         simpleCursorAdapter.changeCursor(TwitsDbReader.getTwits(this));
-        listView.setVisibility(View.GONE);
+
 
     }
 
@@ -127,9 +126,11 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_twits:
                     mRecyclerView.setVisibility(View.GONE);
+                    initListTwits();
                     findViewById(R.id.twits_available).setVisibility(View.VISIBLE);
                     return true;
                 case R.id.navigation_printed:
+                    initRecyclerView();
                     findViewById(R.id.twits_available).setVisibility(View.GONE);
                     mRecyclerView.setVisibility(View.VISIBLE);
                     return true;
