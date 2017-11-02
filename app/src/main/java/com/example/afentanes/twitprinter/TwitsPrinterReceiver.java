@@ -2,7 +2,6 @@ package com.example.afentanes.twitprinter;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;

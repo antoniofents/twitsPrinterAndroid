@@ -5,8 +5,6 @@ import android.app.PendingIntent;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
-
-
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
@@ -50,7 +48,7 @@ public class TwitPrinterUtil {
                         .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                         .setContentTitle("Twit printed")
                         .setContentText(message)
-                        .setChannel(CHANNEL_ID);
+                        .setChannel(CHANNEL_ID).setAutoCancel(true);
         Intent resultIntent = new Intent(context, MainActivity.class);
 
 
